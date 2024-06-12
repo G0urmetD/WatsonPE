@@ -67,7 +67,7 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 - [x] AlwaysInstallElevated
 
 ===== { Browser } =====
-Extracting saved passwords for: Firefox, Chrome, Opera, Brave
+- Extracting saved passwords for: Firefox, Chrome, Opera, Brave
 
 ===== { PuTTY } =====
 - [x] PuTTY sessions
