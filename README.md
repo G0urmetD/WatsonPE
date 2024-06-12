@@ -11,7 +11,7 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 # default call - uses light scan
 .\WatsonPE.ps1
 
-# calling help function (colors explaination)
+# calling help function (colors explanation)
 .\WatsonPE.ps1 -h
 
 # calls light scan
