@@ -2,37 +2,7 @@
 WatsonPE is a small Local Privilege Escalation scan tool, to automate the LPE search on Windows workstations, servers or dc's.
 The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 
-```PowerShell
-
-     _    _       _                  ______ _____ 
-    | |  | |     | |                 | ___ \  ___|
-    | |  | | __ _| |_ ___  ___  _ __ | |_/ / |__  
-    | |/\| |/ _ | __/ __|/ _  \| '_ \|  __/|  __| 
-    \  /\  / (_| | |_\__ \ (_) | | | | |   | |___ 
-     \/  \/ \__,_|\__|___/\___/|_| |_\_|   \____/ 
-
-    
-
-    Author = G0urmetD
-    version = 1.0
-    
-==================== { Description } ====================
-WatsonPE is a small Local Privilege Escalation scan tool, to automate the LPE search on Windows workstations, servers or dc's.
-==================== { Parameters } ====================
-
-        -h, -help               Show help function.
-        -a, -all                Run all checks.
-        -l, -light              Run light checks.
-    
-==================== { Colors } ====================
-        [YELLOW]         ====> running action
-        [DarkMagenta]    ====> script information output
-        [CYAN]           ====> action information
-        [BLUE]           ====> LPE function information banner
-
-        [GREEN]          ====> possible Local Privilege Escalation
-        [RED]            ====> NO possible Local Privilege Escalation
-```
+<img src="WatsonPE" alt="WatsonPE" width="200" height="200"/>
 
 ## Usage
 
