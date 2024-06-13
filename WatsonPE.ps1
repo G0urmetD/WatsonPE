@@ -329,6 +329,10 @@ function Invoke-WorkstationChecks {
     CachedWindowsVaultCredentials
 
     Write-Host ""
+    Write-Host "==================== { GPP Passwords in files" -ForegroundColor Blue
+    Find-GPHistoryFiles
+
+    Write-Host ""
     Write-Host "==================== { PuTTY } ====================" -ForegroundColor Blue
     Write-Host "==============================================================" -ForegroundColor Blue
 
@@ -508,6 +512,10 @@ function Invoke-ServerChecks {
     CachedWindowsVaultCredentials
 
     Write-Host ""
+    Write-Host "==================== { GPP Passwords in files" -ForegroundColor Blue
+    Find-GPHistoryFiles
+
+    Write-Host ""
     Write-Host "==================== { PuTTY } ====================" -ForegroundColor Blue
     Write-Host "==============================================================" -ForegroundColor Blue
 
@@ -685,6 +693,10 @@ function Invoke-DomainControllerChecks {
     Write-Host ""
     Write-Host "==================== { Cached Windows Vault Credentials" -ForegroundColor Blue
     CachedWindowsVaultCredentials
+
+    Write-Host ""
+    Write-Host "==================== { GPP Passwords in files" -ForegroundColor Blue
+    Find-GPHistoryFiles
 
     Write-Host ""
     Write-Host "==================== { PuTTY } ====================" -ForegroundColor Blue
