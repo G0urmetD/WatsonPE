@@ -46,9 +46,6 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 - [x] localgroups and file access
 
 ===== { Processes } =====
-- Interesting processes (non Microsoft)
-
-===== { Processes } =====
 - Interesting services (non Microsoft) information
 - Modifiable services
 - Writable service registry binpath
