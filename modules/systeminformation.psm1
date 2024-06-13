@@ -527,3 +527,39 @@ function UnattendedFiles {
         }
     }
 }
+
+function Check-DirectoryPermissions {
+    <#
+    .DESCRIPTION
+        This function checks the directory permissions of running processes to identify potential vulnerabilities 
+        for DLL injection. It lists the executable paths of all processes, excluding those in "system32", and 
+        checks if the directory permissions allow modifications by certain user groups such as Everyone, 
+        Authenticated Users, or the current user. If such permissions are found, it outputs the directory 
+        path and the associated permissions.
+    #>
+    
+    # Get the list of processes and their paths
+    $processes = Get-WmiObject -Query "SELECT ExecutablePath FROM Win32_Process WHERE ExecutablePath IS NOT NULL"
+
+    # Filter out the processes whose path contains "system32"
+    $filteredProcesses = $processes | Where-Object { $_.ExecutablePath -notmatch "system32" -and $_.ExecutablePath -match ":" }
+
+    # Loop through the filtered processes
+    foreach ($process in $filteredProcesses) {
+        $path = [System.IO.Path]::GetDirectoryName($process.ExecutablePath)
+
+        # Execute icacls and filter the output
+        $icaclsOutput = icacls $path 2>$null
+        $match = $icaclsOutput | Select-String -Pattern "\((F|M|W)\) .*:\\"
+
+        # Filter further by specific users and groups
+        $userMatches = $match -match "everyone|authenticated users|todos|$env:username"
+        if ($userMatches) {
+            Write-Host -ForegroundColor GREEN "[YES]" -NoNewline
+            Write-Host " Potentially vulnerable directory permissions found in: $path"
+
+            Write-Output $icaclsOutput
+            Write-Output ""
+        }
+    }
+}
