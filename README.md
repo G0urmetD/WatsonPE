@@ -63,7 +63,7 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 - [x] Remote Desktop Connection Manager credentials
 - [x] Kerberos Tickets
 - [x] Wifi creds
-- Security Package Credentials
+- [x] Security Package Credentials
 - [x] AlwaysInstallElevated
 
 ===== { Browser } =====
