@@ -77,4 +77,4 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 ===== { interesting files & registry } =====
 - [x] Check for unattended files
 - [x] Check for SAM & SYSTEM backups
-- Check for cached GPP Passwords
+- [x] Check for cached GPP Passwords
