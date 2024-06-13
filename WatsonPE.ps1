@@ -233,6 +233,10 @@ function Invoke-WorkstationChecks {
     UnattendedFiles
 
     Write-Host ""
+    Write-Host "==================== { Unattended Files" -ForegroundColor Blue
+    Check-DirectoryPermissions
+
+    Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue
     Write-Host "==============================================================" -ForegroundColor Blue
     
@@ -410,6 +414,10 @@ function Invoke-ServerChecks {
     Write-Host ""
     Write-Host "==================== { Unattended Files" -ForegroundColor Blue
     UnattendedFiles
+
+    Write-Host ""
+    Write-Host "==================== { Unattended Files" -ForegroundColor Blue
+    Check-DirectoryPermissions
 
     Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue
@@ -593,6 +601,10 @@ function Invoke-DomainControllerChecks {
     Write-Host ""
     Write-Host "==================== { Unattended Files" -ForegroundColor Blue
     UnattendedFiles
+
+    Write-Host ""
+    Write-Host "==================== { Unattended Files" -ForegroundColor Blue
+    Check-DirectoryPermissions
 
     Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue

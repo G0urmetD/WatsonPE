@@ -49,7 +49,7 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 - Interesting services (non Microsoft) information
 - Modifiable services
 - Writable service registry binpath
-- PATH Dll Hijacking
+- [x] PATH Dll Hijacking
 
 ===== { Windows Credentials } =====
 - [x] Windows Vault
