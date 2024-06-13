@@ -226,3 +226,43 @@ function CachedWindowsVaultCredentials {
         Write-Host " Found NO cached credentials in windows vault."
     }
 }
+
+function Find-GPHistoryFiles {
+    <#
+    .DESCRIPTION
+        Find files for GPP passwords.
+        Files: Groups.xml|Services.xml|Scheduledtasks.xml|DataSources.xml|Printers.xml|Drives.xml
+    #>
+
+    $firstPath = "$env:SystemDrive\Microsoft\Group Policy\history"
+    if (Test-Path -Path $firstPath) {
+        Set-Location -Path $firstPath 2>$null
+        $files = Get-ChildItem -Recurse -Name | Where-Object { $_ -match 'Groups.xml|Services.xml|Scheduledtasks.xml|DataSources.xml|Printers.xml|Drives.xml' } 2>$null
+        if ($files) {
+            Write-Output "Files in $firstPath :"
+            $files | ForEach-Object { Write-Output $_ }
+        } else {
+            Write-Host -ForegroundColor RED "[NO]" -NoNewline
+            Write-Host " No matching files found in $firstPath."
+        }
+    } else {
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " Path $firstPath does not exist."
+    }
+
+    $secondPath = "$env:windir\..\Documents and Settings\All Users\Application Data\Microsoft\Group Policy\history"
+    if (Test-Path -Path $secondPath) {
+        Set-Location -Path $secondPath 2>$null
+        $files = Get-ChildItem -Recurse -Name | Where-Object { $_ -match 'Groups.xml|Services.xml|Scheduledtasks.xml|DataSources.xml|Printers.xml|Drives.xml' } 2>$null
+        if ($files) {
+            Write-Output "Files in $secondPath :"
+            $files | ForEach-Object { Write-Output $_ }
+        } else {
+            Write-Host -ForegroundColor RED "[NO]" -NoNewline
+            Write-Host " No matching files found in $secondPath."
+        }
+    } else {
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " Path $secondPath does not exist."
+    }
+}
