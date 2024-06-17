@@ -22,8 +22,6 @@ function UserInformation {
     }
     
     # Directory access check
-    Write-Host ""
-    Write-Host -ForegroundColor Blue "=========|| USER DIRECTORY ACCESS CHECK"
     Get-ChildItem C:\Users\* | ForEach-Object {
         if (Get-ChildItem $_.FullName -ErrorAction SilentlyContinue) {
             Write-Host -ForegroundColor Red "Read Access to $($_.FullName)"
