@@ -1,17 +1,28 @@
 function KernelInformation {
 
-    $osVersion = [System.Environment]::OSVersion.Version
-    $osCaption = (Get-WmiObject -class Win32_OperatingSystem).Caption
-    
-    $osInfo = @{
-        OS       = $osCaption
-        Major    = $osVersion.Major
-        Minor    = $osVersion.Minor
-        Build    = $osVersion.Build
-        Revision = $osVersion.Revision
-    }
+    try {
+        $osVersion = [System.Environment]::OSVersion.Version
+        $osInfoObj = Get-WmiObject -class Win32_OperatingSystem
 
-    $osInfo.GetEnumerator() | ForEach-Object { Write-Output "$($_.Key): $($_.Value)" }
+        $osInfo = @{
+            OS                 = $osInfoObj.Caption
+            Major              = $osVersion.Major
+            Minor              = $osVersion.Minor
+            Build              = $osVersion.Build
+            Revision           = $osVersion.Revision
+            Architecture       = $osInfoObj.OSArchitecture
+            ServicePack        = $osInfoObj.ServicePackMajorVersion
+            InstallDate        = [Management.ManagementDateTimeConverter]::ToDateTime($osInfoObj.InstallDate)
+            LastBootUpTime     = [Management.ManagementDateTimeConverter]::ToDateTime($osInfoObj.LastBootUpTime)
+            Uptime             = (Get-Date) - [Management.ManagementDateTimeConverter]::ToDateTime($osInfoObj.LastBootUpTime)
+        }
+
+        $osInfo.GetEnumerator() | Sort-Object Name | Format-Table @{Label="Property";Expression={$_.Key}}, @{Label="Value";Expression={$_.Value}} -AutoSize
+    }
+    catch {
+        Write-Host -ForegroundColor CYAN "[ERROR]" -NoNewline
+        Write-Host " Error in calling os information: $_"
+    }
 }
 
 function Test-DomainJoinStatus {
@@ -70,8 +81,32 @@ function Test-DomainJoinStatus {
 }
 
 function AntiVirusDetection {
-    WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName
-    Get-ChildItem 'registry::HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions' -ErrorAction SilentlyContinue
+    try {
+        $antivirusProducts = Get-CimInstance -Namespace root/SecurityCenter2 -ClassName AntiVirusProduct | Select-Object DisplayName, ProductState
+
+        if ($antivirusProducts) {
+            Write-Host -ForegroundColor CYAN "[INFO]" -NoNewline
+            Write-Host " AntiVirus Software founded:"
+
+            $antivirusProducts | Format-Table DisplayName, ProductState -AutoSize
+        } else {
+            Write-Output "Keine Antivirus-Software gefunden."
+        }
+
+        $defenderExclusions = Get-ChildItem 'registry::HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions' -ErrorAction SilentlyContinue
+
+        if ($defenderExclusions) {
+            Write-Output "Windows Defender Ausschlüsse:"
+            $defenderExclusions | Format-Table PSChildName -AutoSize
+        } else {
+            Write-Host -ForegroundColor CYAN "[INFO]" -NoNewline
+            Write-Host " No Windows Defender exclusions found."
+        }
+    }
+    catch {
+        Write-Host -ForegroundColor CYAN "[ERROR]" -NoNewline
+        Write-Host " Error in identifying antivirus software or windows defender exclusions: $_"
+    }
 }
 
 function returnHotFixID {
@@ -429,6 +464,9 @@ function Spooler {
 
         Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
         Write-Host " https://www.hackingarticles.in/windows-privilege-escalation-printnightmare/"
+
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " https://github.com/calebstewart/CVE-2021-1675"
         
         if(Test-Path $registryPath) {
             $permissions = Get-Acl -Path $registryPath | Select-Object -ExpandProperty Access
@@ -528,7 +566,7 @@ function UnattendedFiles {
     }
 }
 
-function Check-DirectoryPermissions {
+function CheckDirectoryPermissions {
     <#
     .DESCRIPTION
         This function checks the directory permissions of running processes to identify potential vulnerabilities 
