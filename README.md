@@ -3,7 +3,7 @@ WatsonPE is a small Local Privilege Escalation scan tool, to automate the LPE se
 The tool is based on:
 - https://book.hacktricks.xyz/
 - winPEAS script
-- https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/#sam-and-system-files
+- [https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/#sam-and-system-files](https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/)
 
 <img src="WatsonPE.png" alt="WatsonPE"/>
 
