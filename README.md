@@ -44,6 +44,7 @@ The tool is based on https://book.hacktricks.xyz/ & winPEAS stuff.
 - [x] Autologin credentials
 - [x] Logon Sessions
 - [x] localgroups and file access
+- [x] HiveNightmare
 
 ===== { Processes } =====
 - Interesting services (non Microsoft) information
