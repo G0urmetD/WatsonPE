@@ -36,7 +36,7 @@ function Show-Banner {
     #>
 
     param(
-        [string]$version = "1.0"
+        [string]$version = "1.1"
     )
 
     Write-Host "
@@ -84,7 +84,7 @@ if($help) {
     exit
 }
 
-function Check-SystemInfo {
+function CheckSystemInfo {
     <#
     .DESCRIPTION
         Fetch system information to get difference between running on a workstation or server.
@@ -234,7 +234,7 @@ function Invoke-WorkstationChecks {
 
     Write-Host ""
     Write-Host "==================== { Unattended Files" -ForegroundColor Blue
-    Check-DirectoryPermissions
+    CheckDirectoryPermissions
 
     Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue
@@ -271,6 +271,10 @@ function Invoke-WorkstationChecks {
     Write-Host ""
     Write-Host "==================== { UnquotedServicePath" -ForegroundColor Blue
     UnquotedServicePath
+
+    Write-Host ""
+    Write-Host "==================== { UnquotedServicePath" -ForegroundColor Blue
+    HiveNightmare
 
     Write-Host ""
     Write-Host "==================== { Credentials } ====================" -ForegroundColor Blue
@@ -417,7 +421,7 @@ function Invoke-ServerChecks {
 
     Write-Host ""
     Write-Host "==================== { Unattended Files" -ForegroundColor Blue
-    Check-DirectoryPermissions
+    CheckDirectoryPermissions
 
     Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue
@@ -604,7 +608,7 @@ function Invoke-DomainControllerChecks {
 
     Write-Host ""
     Write-Host "==================== { Unattended Files" -ForegroundColor Blue
-    Check-DirectoryPermissions
+    CheckDirectoryPermissions
 
     Write-Host ""
     Write-Host "==================== { User Information } ====================" -ForegroundColor Blue
@@ -727,5 +731,5 @@ function Invoke-DomainControllerChecks {
     PuTTYSSHKnownHosts
 }
 
-# Call the Check-SystemInfo function
-Check-SystemInfo
+# Call the CheckSystemInfo function
+CheckSystemInfo
