@@ -170,3 +170,42 @@ function UnquotedServicePath {
         } 
     }
 }
+
+function HiveNightmare {
+    <#
+    .DESCRIPTION
+        HiveNightmare (CVE-2021-36934) allows you to retrieve all registry hives (SAM, SECURITY, SYSTEM) in Windows 10 & Windows 11
+        as a non-administrator user.
+    #>
+
+    try {
+        $samPath = "C:\Windows\System32\config\SAM"
+
+        # Check permissions using Get-Acl
+        $acl = Get-Acl -Path $samPath -ErrorAction Stop
+
+        $accessGranted = $false
+        foreach ($access in $acl.Access) {
+            if ($access.IdentityReference -match "BUILTIN\\Users" -and $access.FileSystemRights -match "Read") {
+                $accessGranted = $true
+                break
+            }
+        }
+
+        if ($accessGranted) {
+            Write-Host -ForegroundColor Green "[YES]" -NoNewline
+            Write-Host " Non-Administrator have some access."
+        } else {
+            Write-Host -ForegroundColor Red "[NO]" -NoNewline
+            Write-Host " Non-Administrator have no access."
+        }
+    }
+    catch [System.UnauthorizedAccessException] {
+        Write-Host -ForegroundColor Red "[NO]" -NoNewline
+        Write-Host " Non-Administrator have no access."
+    }
+    catch {
+        Write-Host -ForegroundColor Cyan "[INFO]" -NoNewline
+        Write-Host " Something went wrong: $_"
+    }
+}
