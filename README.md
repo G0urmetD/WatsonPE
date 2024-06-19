@@ -4,6 +4,7 @@ The tool is based on:
 - https://book.hacktricks.xyz/
 - winPEAS script
 - [https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/](https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/)
+- PowerUp script
 
 <img src="WatsonPE.png" alt="WatsonPE"/>
 
