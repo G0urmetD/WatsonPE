@@ -69,7 +69,7 @@ The tool is based on:
 - [x] AlwaysInstallElevated
 
 ===== { Browser } =====
-- Extracting saved passwords for: Firefox, Chrome, Opera, Brave
+- [x] Extracting saved passwords for: Firefox, Chrome, Opera, Brave
 
 ===== { PuTTY } =====
 - [x] PuTTY sessions
