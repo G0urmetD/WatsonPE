@@ -1,4 +1,4 @@
-# - Scheduled task, the user can modify (from PowerUp)
+# - [x] Scheduled task, the user can modify (from PowerUp)
 # - Default writable Folders
 # - AlwaysInstallElevated
 # - CustomActions
