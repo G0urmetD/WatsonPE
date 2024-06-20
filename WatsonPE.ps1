@@ -33,7 +33,7 @@ param(
 
 function ShowBanner {
     param(
-        [string]$version = "1.0"
+        [string]$version = "1.1"
     )
     
     Write-Host "
@@ -135,6 +135,25 @@ if($all) {
     Write-Host "================================= { Incorrect permissions in Services } =============================" -ForegroundColor Blue
     Write-Host "=====================================================================================================" -ForegroundColor Blue
     Find-PathDLLHijack
+
+    Start-Sleep -Seconds 2
+
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    Write-Host "=================================== User Information ================================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    Write-Host ""
+
+    Write-Host "================================= { From Local administrator to NT SYSTEM } =========================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    if (Test-IsAdmin) {
+        Write-Host -ForegroundColor GREEN "[YES]" -NoNewline
+        Write-Host " You have already local admin rights. Your account is part of the Administrators group."
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Try: PsExec.exe -i -s cmd.exe"
+    } else {
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " You have NO local admin rights."
+    }
 } elseif($light) {
 
 } elseif ($enum) {
