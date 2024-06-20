@@ -1,6 +1,6 @@
-# - Antivirus Enumeration
+# - [x] Antivirus Enumeration
 # - Network Enumeration
-# - User Enumeration
+# - [x] User Enumeration
 # - Process Enumeration & Tasks
 # - ScheduledTaskEnumeration
 
