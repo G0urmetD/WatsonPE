@@ -2,7 +2,7 @@
 # - Default writable Folders
 # - AlwaysInstallElevated
 # - CustomActions
-# - From local administrator to NT SYSTEM
+# - [x] From local administrator to NT SYSTEM
 # - Impersonation Privileges
 #     - SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
 #     - SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
@@ -115,4 +115,24 @@ Custom PSObject containing results.
         }
     }
     $ErrorActionPreference = $OrigError
+}
+
+function Test-IsAdmin {
+    try {
+        $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+        $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
+        
+        if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+            Write-Host -ForegroundColor GREEN "[YES]" -NoNewLine
+            Write-Host " The current user is the local administrator account."
+            return $true
+        } else {
+            Write-Host -ForegroundColor GREEN "[YES]" -NoNewLine
+            Write-Host " The current user is neither a local administrator nor a member of the local administrator group."
+            return $false
+        }
+    } catch {
+        Write-Error "Errors during the check: $_"
+        return $false
+    }
 }
