@@ -11,18 +11,17 @@ The tool is based on:
 ## Usage
 
 ```PowerShell
-
-# default call - uses light scan
-.\WatsonPE.ps1
-
 # calling help function (colors explanation)
 .\WatsonPE.ps1 -h
 
-# calls light scan
+# calls quick win scan
 .\WatsonPE.ps1 -light
 
-# calls heavy scan (in development)
+# calls heavy scan
 .\WatsonPE.ps1 -all
+
+# calls enumeration module
+.\WatsonPE.ps1 -enum
 ```
 
 ## Modulinformation
