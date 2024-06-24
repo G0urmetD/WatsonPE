@@ -80,7 +80,6 @@
 - Process Enumeration & Tasks
 
 ### Common Vulnerabilities
-- MS08-067 (NetAPI) [nmap -Pn -p445 --open --max-hostgroup 3 --script smb-vuln-ms08-067 <ip_netblock>]
 - MS10-015 (KiTrap0D) - Microsoft Windows NT/2000/2003/2008/XP/Vista/7
 - MS11-080 (afd.sys) - Microsoft Windows XP/2003
 - MS15-051 (Client Copy Image) - Microsoft Windows 2003/2008/7/8/2012
