@@ -55,11 +55,14 @@ function MS17010 {
             $versionString = "$($versionInfo.FileMajorPart).$($versionInfo.FileMinorPart).$($versionInfo.FileBuildPart).$($versionInfo.FilePrivatePart)"
             $fileVersion = New-Object System.Version($versionString)
         } Catch {
-            Write-Host "Unable to retrieve file version info, please verify vulnerability state manually." -ForegroundColor Yellow
+            Write-Host -ForegroundColor CYAN "[INFO]" -NoNewline
+        Write-Host " Unable to retrieve file version info, please verify vulnerability state manually."
             Return
         }
     } Else {
-        Write-Host "Srv.sys does not exist, please verify vulnerability state manually." -ForegroundColor Yellow
+        Write-Host "`n`n"
+        Write-Host -ForegroundColor CYAN "[INFO]" -NoNewline
+        Write-Host " Srv.sys does not exist, please verify vulnerability state manually."
         Return
     }
 
@@ -121,9 +124,11 @@ function MS17010 {
 
     If ($($fileVersion.CompareTo($expectedVersion)) -lt 0) {
         Write-Host "`n`n"
-        Write-Host "System is NOT Patched" -ForegroundColor Red
+        Write-Host -ForegroundColor GREEN "[YES]" -NoNewline
+        Write-Host " System is NOT patched."
     } Else {
         Write-Host "`n`n"
-        Write-Host "System is Patched" -ForegroundColor Green
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " System is patched."
     }
 }
