@@ -80,13 +80,9 @@
 - Process Enumeration & Tasks
 
 ### Common Vulnerabilities
-- MS10-015 (KiTrap0D) - Microsoft Windows NT/2000/2003/2008/XP/Vista/7
-- MS11-080 (afd.sys) - Microsoft Windows XP/2003
-- MS15-051 (Client Copy Image) - Microsoft Windows 2003/2008/7/8/2012
-- MS16-032 - Microsoft Windows 7 < 10 / 2008 < 2012 R2 (x86/x64)
-- MS17-010 (Eternal Blue)
-- CVE-2019-1388
-- CVE-2024-30080 (Microsoft Message Queuing (MSMQ) Remote Code Execution Vulnerability)
+- [x] MS16-032 - Microsoft Windows 7 < 10 / 2008 < 2012 R2 (x86/x64)
+- [x] MS17-010 (Eternal Blue)
+- [x] CVE-2024-30080 (Microsoft Message Queuing (MSMQ) Remote Code Execution Vulnerability)
 ```PowerShell
 $msmqService = Get-Service -Name MSMQ -ErrorAction SilentlyContinue
 if ($msmqService.Status -eq 'Running') {
