@@ -74,11 +74,11 @@
     - DPAPI Credential files
 
 ### Enumeration Module
-# - [x] Antivirus Enumeration
-# - Network Enumeration
-# - [x] User Enumeration
-# - Process Enumeration & Tasks
-# - ScheduledTaskEnumeration
+- [x] Antivirus Enumeration
+- Network Enumeration
+- [x] User Enumeration
+- Process Enumeration & Tasks
+- ScheduledTaskEnumeration
 
 ### Common Vulnerabilities
 - [x] MS16-032 - Microsoft Windows 7 < 10 / 2008 < 2012 R2 (x86/x64)
