@@ -74,9 +74,9 @@
     - DPAPI Credential files
 
 ### Enumeration Module
-- User Enumeration
+- [x] User Enumeration
 - Network Enumeration
-- Antivirus Enumeration
+- [x] Antivirus Enumeration
 - Process Enumeration & Tasks
 
 ### Common Vulnerabilities
