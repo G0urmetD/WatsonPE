@@ -14,9 +14,8 @@
 - [x] LSA Protection
 
 ### Current User
-- Default writable Folders
-- AlwaysInstallElevated
-- CustomActions
+- [x] Default writable Folders
+- [x] AlwaysInstallElevated
 - From local administrator to NT SYSTEM
 - Impersonation Privileges
     - SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
