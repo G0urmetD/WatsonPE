@@ -192,26 +192,6 @@ Custom PSObject containing results.
     $ErrorActionPreference = $OrigError
 }
 
-function Test-IsAdmin {
-    try {
-        $currentUser = [System.Security.Principal.WindowsIdentity]::GetCurrent()
-        $principal = New-Object Security.Principal.WindowsPrincipal($currentUser)
-        
-        if ($principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-            Write-Host -ForegroundColor GREEN "[YES]" -NoNewLine
-            Write-Host " The current user is the local administrator account."
-            return $true
-        } else {
-            Write-Host -ForegroundColor GREEN "[YES]" -NoNewLine
-            Write-Host " The current user is neither a local administrator nor a member of the local administrator group."
-            return $false
-        }
-    } catch {
-        Write-Error "Errors during the check: $_"
-        return $false
-    }
-}
-
 function SeBackUpPrivilege {
     <#
     .DESCRIPTION
@@ -281,5 +261,32 @@ function SeAssignPrimaryToken {
     } else {
         Write-Host -ForegroundColor Red "[NO]" -NoNewline
         Write-Host " No SeAssignPrimaryToken for current account found."
+    }
+}
+
+function FromLocalAdminToNTSYSTEM {
+    $currentUser = whoami
+
+    # fetch current computer language
+    $OSInfo = Get-WmiObject -Class Win32_OperatingSystem
+    $languagepack = $OSInfo.MUILanguages
+    if($languagepack -eq "de-DE") {
+        $currentAdminGroupUser = Get-LocalGroup -Name "Administratoren"
+    } elseif ($languagepack -eq "en-EN") {
+        $currentAdminGroupUser = Get-LocalGroup -Name "Administrators"
+    } else {
+        Write-Host -ForegroundColor Red "[x]" -NoNewline
+        Write-Host " No supported langugage detected."   
+    }
+
+
+    if ($adminGroupMembers -contains $currentUser) { 
+        Write-Host -ForegroundColor GREEN "[YES]" -NoNewline
+        Write-Host " Current user is part of local admin group."
+        Write-Host -ForegroundColor DarkGreen "[HINT]" -NoNewline
+        Write-Host " Use: PsExec.exe -i -s cmd.exe"
+    } else {
+        Write-Host -ForegroundColor RED "[NO]" -NoNewline
+        Write-Host " Current user is not part of local admin group."
     }
 }
