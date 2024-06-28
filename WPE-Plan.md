@@ -18,8 +18,8 @@
 - [x] AlwaysInstallElevated
 - From local administrator to NT SYSTEM
 - Impersonation Privileges
-    - SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
-    - SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
+    - [x] SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
+    - [x] SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
     - SeCreateToken (Create arbitrary token including local admin rights with "NtCreateToken")
     - SeDebug (Duplicate the "lsass.exe" token [https://github.com/FuzzySecurity/PowerShell-Suite/blob/master/Conjure-LSASS.ps1])
     - SeLoadDriver (Can be used to load buggy drivers as szkg64.sys [CVE-2018-15732])
@@ -27,7 +27,7 @@
     - SeTakeOwnership ('takeown.exe /f "%windir%\system32"' , 'icalcs.exe "%windir%\system32" /grant "%username%":F' , Rename cmd.exe to utilman.exe, lock and press Win+U )
     - SeTcb (Manipulate tokens to have local admin rights included. May require SeImpersonate to be verified.)
     - SeRelable (Allows you to own resources that have an integrity level even higher than your own [https://github.com/decoder-it/RelabelAbuse])
-    - SeImpersonate (allows to impersonate any token, given that a handle to it can be obtained. Exploited with: juicy-potato/RogueWinRM/SweetPotato/PrintSpoofer)
+    - [x] SeImpersonate (allows to impersonate any token, given that a handle to it can be obtained. Exploited with: juicy-potato/RogueWinRM/SweetPotato/PrintSpoofer)
 - Privileged File Write (usable only before 1903)
     - WerTrigger (Exploit Privileged File Writes bugs with Windows Problem Reporting)
         - Clone https://github.com/sailay1996/WerTrigger
