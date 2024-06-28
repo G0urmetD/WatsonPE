@@ -16,7 +16,7 @@
 ### Current User
 - [x] Default writable Folders
 - [x] AlwaysInstallElevated
-- From local administrator to NT SYSTEM
+- [x] From local administrator to NT SYSTEM
 - Impersonation Privileges
     - [x] SeBackup (Read sensitive files: SAM/SYSTEM/MEMORY.DMP)
     - [x] SeAssignPrimaryToken (Allows a user to impersonate tokens and privesc to NT SYSTEM using tools as potato.exe/rottenpotato.exe/juicyportato.exe)
