@@ -1,28 +1,28 @@
-#[x] SAM & SYSTEM files
-#[x] HiveNightmare
-#[x] Passwords in unattend.xml
-#[x] Wifi Passwords
-#[] Passwords stored in Services
-#[] PowerShell History
-#[] PowerShell Transcript
-#[] Password in Alternate Data Stream
-#[x] Cached Windows Credential Manager
-#[x] Windows Vault
-#[x] DPAPI Masterkeys
-#[x] DPAPI Credential files
-#[x] Remote Desktop Credential Manager
-#[x] Cloud Credentials
-#[x] OpenVPN Credentials
-#[x] OpenSSH Keys
-#[x] WinVNC Passwords
-#[x] SNMP Passwords
-#[x] Tight VNC Passwords
-#[x] Group Policy Passwords
-#[x] Kerberos Tickets
-#[x] Group Policy History files
-#[x] PuTTY Credentials
-#[x] PuTTY Keys
-#[x] PuTTY SSH Known Hosts
+# - [x] SAM & SYSTEM files
+# - [x] HiveNightmare
+# - [x] Passwords in unattend.xml
+# - [x] Wifi Passwords
+# - [] Passwords stored in Services
+# - [] PowerShell History
+# - [] PowerShell Transcript
+# - [] Password in Alternate Data Stream
+# - [x] Cached Windows Credential Manager
+# - [x] Windows Vault
+# - [x] DPAPI Masterkeys
+# - [x] DPAPI Credential files
+# - [x] Remote Desktop Credential Manager
+# - [x] Cloud Credentials
+# - [x] OpenVPN Credentials
+# - [x] OpenSSH Keys
+# - [x] WinVNC Passwords
+# - [x] SNMP Passwords
+# - [x] Tight VNC Passwords
+# - [x] Group Policy Passwords
+# - [x] Kerberos Tickets
+# - [x] Group Policy History files
+# - [x] PuTTY Credentials
+# - [x] PuTTY Keys
+# - [x] PuTTY SSH Known Hosts
 
 function SAMSYSTEMBackup {
     <#
