@@ -1,6 +1,6 @@
-- [x] MS16-032 - Microsoft Windows 7 < 10 / 2008 < 2012 R2 (x86/x64)
-- [x] MS17-010 (Eternal Blue)
-- [x] CVE-2024-30080 (Microsoft Message Queuing (MSMQ) Remote Code Execution Vulnerability)
+# - [x] MS16-032 - Microsoft Windows 7 < 10 / 2008 < 2012 R2 (x86/x64)
+# - [x] MS17-010 (Eternal Blue)
+# - [x] CVE-2024-30080 (Microsoft Message Queuing (MSMQ) Remote Code Execution Vulnerability)
 
 function MSMQVulnerability {
     <#
