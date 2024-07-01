@@ -53,24 +53,31 @@
 
 ### Credentials
 - Looting for Passwords/Credentials
-    - SAM & SYSTEM files
-    - HiveNightmare
-    - LAPS Settings
-    - Search for file contents
-    - Search for file with certain filename
-    - Search the registry for key names and passwords
-    - Passwords in unattend.xml
-    - Wifi Passwords
-    - Sticky Notes Passwords
+    - [x] SAM & SYSTEM files
+    - [x] HiveNightmare
+    - [x] Passwords in unattend.xml
+    - [x] Wifi Passwords
     - Passwords stored in Services
-    - Passwords stored in Key Manager
     - PowerShell History
     - PowerShell Transcript
     - Password in Alternate Data Stream
-    - Windows Credential Manager
-    - Windows Vault
-    - DPAPI Masterkeys
-    - DPAPI Credential files
+    - [x] Windows Credential Manager
+    - [x] Windows Vault
+    - [x] DPAPI Masterkeys
+    - [x] DPAPI Credential files
+    - [x] Remote Desktop Credential Manager
+    - [x] Cloud Credentials
+    - [x] OpenVPN Credentials
+    - [x] OpenSSH Keys
+    - [x] WinVNC Passwords
+    - [x] SNMP Passwords
+    - [x] Tight VNC Passwords
+    - [x] Group Policy Passwords
+    - [x] Keberos Tickets
+    - [x] Group Policy History Files
+    - [x] PuTTY Credentials
+    - [x] PuTTY Keys
+    - [x] PuTTY SSH Known Hosts
 
 ### Enumeration Module
 - [x] Antivirus Enumeration
