@@ -22,4 +22,7 @@ The tool is based on:
 
 # calls enumeration module
 .\WatsonPE.ps1 -enum
+
+# calls credential module
+.\WatsonPE.ps1 -creds
 ```
