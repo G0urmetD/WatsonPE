@@ -159,6 +159,95 @@ if($all) {
         Write-Host -ForegroundColor RED "[NO]" -NoNewline
         Write-Host " You have NO local admin rights."
     }
+
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    Write-Host "=================================== Credential Enumeration ==========================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    Write-Host ""
+
+    Write-Host "================================= { SAM & SYSTEM files } ============================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    SAMSYSTEMBackup
+
+    Write-Host "================================= { HiveNightmare } =================================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    HiveNightmare
+
+    Write-Host "================================= { Passwords in unattend.xml } =====================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    Get-UnattendedInstallFile
+
+    Write-Host "================================= { WiFi credentials } ==============================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    WifiCredentials
+
+    Write-Host "================================= { Windows Credential Manager } ====================================" -ForegroundColor Blue
+    Write-Host "=====================================================================================================" -ForegroundColor Blue
+    CachedWindowsVaultCredentials
+
+    Write-Host "================================= { Windows Vault } ================================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    Get-VaultCredential
+
+    Write-Host "================================= { DPAPI Masterkeys } =============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    DPAPIMasterKeys
+
+    Write-Host "================================= { DPAPI RPC Masterkeys } =========================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    DPAPIRPCMasterKeys
+
+    Write-Host "================================= { Remote Desktop Credential Manager } ============================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    RemoteDesktopCredentialManager
+
+    Write-Host "================================= { Cloud Credentials } ============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    CloudCredentials
+
+    Write-Host "================================= { OpenVPN Credentiasl } ==========================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    OpenVPNCredentials
+
+    Write-Host "================================= { OpenSSH Keys } =================================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    OpenSSHKeys
+
+    Write-Host "================================= { WinVNC Passwords } =============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    WinVNCPasswords
+
+    Write-Host "================================= { SNMP Passwords } ===============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    SNMPPasswords
+
+    Write-Host "================================= { TightVNC Passwords } ===========================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    TightVNCPasswords
+
+    Write-Host "================================= { Group Policy Passwords } =======================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    GroupPolicyPasswords
+
+    Write-Host "================================= { Kerberos Tickets } =============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    KerberosTickets
+
+    Write-Host "================================= { Group Policy History Files } ===================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    Find-GPHistoryFiles
+
+    Write-Host "================================= { PuTTY Credentials } ============================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    PuTTYCredentials
+
+    Write-Host "================================= { PuTTY Keys } ===================================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    PuTTYKeys
+
+    Write-Host "================================= { PuTTY SSH Known Hosts } ========================================" -ForegroundColor Blue
+    Write-Host "====================================================================================================" -ForegroundColor Blue
+    PuTTYSSHKnownHosts
 } elseif($light) {
 
 } elseif ($enum) {
